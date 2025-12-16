@@ -11,7 +11,7 @@
     </thead>
     <tbody>
       <!-- Loopar igenom listan, skapar en komponent per objekt (SerieItem)-->
-      <SerieItem v-for="serie in series" :serie="serie" :key="serie._id" />
+      <SerieItem v-for="serie in series" :serie="serie" :key="serie._id" @delete-serie="deleteSerie" />
 
     </tbody>
   </table>
@@ -24,7 +24,7 @@ import { ref, onMounted } from 'vue';
 // Skapar en reaktiv variabel som reagerar på ändringar. Den börjar som en tom array.
 const series = ref([]);
 
-// När seriesView är färdigrenderad och visas så hämtas API:et med funktionen getSeries.
+// När seriesView-komponenten är färdigrenderad och visas så hämtas API:et med funktionen getSeries.
 onMounted(() => {
   getSeries();
 });
@@ -43,6 +43,22 @@ const getSeries = async () => {
 
   } catch (error) {
     console.error('Error fetching series:', error);
+  }
+}
+
+// Förälder (seriesView) tar emot id och anropar API för DELETE
+const deleteSerie = async (id) => {
+  try {
+    const res = await fetch('/api/series/' + id, {
+      method: "DELETE"
+    });
+
+    if (res.ok) {
+      getSeries();
+    }
+
+  } catch (error) {
+    console.error('Error deleting series:', error);
   }
 }
 

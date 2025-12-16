@@ -5,19 +5,22 @@
         <td>
             <input type="checkbox" disabled :checked="serie.seen" />
         </td>
-        <td></td>
+        <td>
+            <!-- Knapp i SerieItem-komponenten skickar id via emit till förälder -->
+            <button @click="emits('deleteSerie', serie._id)">TA BORT</button>
+        </td>
     </tr>
 </template>
 
-<script>
-// Representerar en rad i tabellen och tar emot ett serie-objekt och visar tabellraden.
-export default {
-    name: 'SerieItem',
-    props: {
-        serie: {
-            type: Object,
-            required: true
-        }
-    }
-};
+<script setup>
+// Tar emot ett serie-objekt och visar tabellraden via props=tar emot data från föräldern.
+const props = defineProps({
+  serie: {
+    type: Object,
+    required: true
+  }
+})
+
+// Skickar signaler till föräldern seriesView med emits.
+const emits = defineEmits(["deleteSerie"]);
 </script>
