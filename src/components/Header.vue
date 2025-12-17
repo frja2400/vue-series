@@ -86,6 +86,7 @@ header {
     background-color: rgba(3, 2, 3, 0.8);
     z-index: 1000;
     transition: background-color 0.3s ease;
+    padding-bottom: 5px;
 }
 
 .header-container {
@@ -215,6 +216,10 @@ nav a:hover {
 
     h2 {
         font-size: 1.3em;
+    }
+
+    header {
+        padding-bottom: 0;
     }
 }
 </style>

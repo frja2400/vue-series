@@ -4,9 +4,3 @@
     min egentid för återhämtning, men jag tycker också att det är en mysig aktivitet att göra tillsammans med familj och
     vänner.</p>
 </template>
-
-<script setup>
-
-</script>
-
-<style scoped></style>
