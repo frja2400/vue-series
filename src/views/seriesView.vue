@@ -1,5 +1,7 @@
 <template>
   <h2>TV-serier</h2>
+  <!-- Renderar komponenten för formuläret och skickar en emit när serie har lagts till (som hämtar listan på nytt) -->
+  <AddSerie @refresh-series="getSeries" />
   <table>
     <thead>
       <tr>
@@ -10,15 +12,15 @@
       </tr>
     </thead>
     <tbody>
-      <!-- Loopar igenom listan, skapar en komponent per objekt (SerieItem)-->
+      <!-- Loopar igenom listan, skapar en komponent per objekt (SerieItem) och skriver ut -->
       <SerieItem v-for="serie in series" :serie="serie" :key="serie._id" @delete-serie="deleteSerie" />
-
     </tbody>
   </table>
 </template>
 
 <script setup>
 import SerieItem from '@/components/SerieItem.vue';
+import AddSerie from '@/components/AddSerie.vue';
 import { ref, onMounted } from 'vue';
 
 // Skapar en reaktiv variabel som reagerar på ändringar. Den börjar som en tom array.
