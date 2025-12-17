@@ -2,7 +2,11 @@
   <h2>TV-serier</h2>
   <!-- Renderar komponenten för formuläret och skickar en emit när serie har lagts till (som hämtar listan på nytt) -->
   <AddSerie @refresh-series="getSeries" />
-  <table>
+
+  <!-- Visas medan API:et laddas -->
+  <p v-if="loading">Listan laddas...</p>
+  <!-- Visas när series är hämtade -->
+  <table v-else>
     <thead>
       <tr>
         <th>Namn</th>
@@ -26,12 +30,15 @@ import { ref, onMounted } from 'vue';
 // Skapar en reaktiv variabel som reagerar på ändringar. Den börjar som en tom array.
 const series = ref([]);
 
+const loading = ref(true);
+
 // När seriesView-komponenten är färdigrenderad och visas så hämtas API:et med funktionen getSeries.
 onMounted(() => {
   getSeries();
 });
 
 const getSeries = async () => {
+  loading.value = true;
   try {
     // Skickas via Vite-proxy till Render-servern för att förhindra CORS.
     const res = await fetch('/api/series');
@@ -45,6 +52,8 @@ const getSeries = async () => {
 
   } catch (error) {
     console.error('Error fetching series:', error);
+  } finally {
+    loading.value = false; // Laddning klar
   }
 }
 
