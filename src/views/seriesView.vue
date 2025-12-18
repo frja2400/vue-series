@@ -95,6 +95,7 @@ table {
   overflow: hidden;
   min-width: 600px;
   border: 2px solid black;
+  margin-top: 20px;
 }
 
 th {

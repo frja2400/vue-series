@@ -6,7 +6,8 @@
             </h1>
 
             <!--Menyknapp för att öppna mobilmeny-->
-            <button class="menu-btn" id="menu-toggle">
+            <button class="menu-btn" ref="menuBtn"
+                @click="menuBtn.classList.toggle('active'); navMenu.classList.toggle('show')">
                 <span class="menu-icon">
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -14,15 +15,15 @@
             </button>
 
             <nav id="nav-menu">
-                <ul>
+                <ul ref="navMenu">
                     <li>
-                        <RouterLink to="/">Startsida</RouterLink>
+                        <RouterLink to="/" @click="closeMenu">Startsida</RouterLink>
                     </li>
                     <li>
-                        <RouterLink to="/serier">TV-Serier</RouterLink>
+                        <RouterLink to="/serier" @click="closeMenu">TV-Serier</RouterLink>
                     </li>
                     <li>
-                        <RouterLink to="/information">Information</RouterLink>
+                        <RouterLink to="/information" @click="closeMenu">Information</RouterLink>
                     </li>
                 </ul>
             </nav>
@@ -37,26 +38,33 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
 import { RouterLink } from 'vue-router';
 
-window.addEventListener('DOMContentLoaded', () => {
-    const menuBtn = document.getElementById('menu-toggle');
-    const navMenu = document.querySelector('nav ul');
+const menuBtn = ref(null);
+const navMenu = ref(null);
 
-    // Hamburgemeny
-    menuBtn?.addEventListener('click', (e) => {
-        menuBtn.classList.toggle('active');
-        navMenu.classList.toggle('show');
-        e.stopPropagation();
-    });
+// Funktion som stänger menyn
+const closeMenu = () => {
+    menuBtn.value.classList.remove('active');
+    navMenu.value.classList.remove('show');
+};
 
-    // Stäng menyn vid klick utanför
-    document.addEventListener('click', (e) => {
-        if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-            menuBtn.classList.remove('active');
-            navMenu.classList.remove('show');
-        }
-    });
+// Stäng menyn om man klickar utanför
+const handleClickOutside = (e) => {
+  if (!navMenu.value.contains(e.target) && !menuBtn.value.contains(e.target)) {
+    closeMenu();
+  }
+};
+
+// Lägg till listener när komponenten mountas
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
+
+// Ta bort listener när komponenten unmountas
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside);
 });
 </script>
 
