@@ -62,7 +62,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 <style scoped>
 .hero-banner {
-    background-image: url('../public/hero-banner.jpg');
+    background-image: url('/hero-banner.jpg');
     background-size: cover;
     background-position: center;
     height: 400px;
