@@ -50,7 +50,7 @@ const addSerie = async () => {
 
     // Skickar POST-anrop till REST API och konverterar objektet till JSON.
     try {
-        const res = await fetch('/api/series', {
+        const res = await fetch('https://dt193g-lab2-2.onrender.com/api/series', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

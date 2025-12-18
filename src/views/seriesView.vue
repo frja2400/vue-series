@@ -45,8 +45,7 @@ onMounted(() => {
 const getSeries = async () => {
   loading.value = true;
   try {
-    // Skickas via Vite-proxy till Render-servern för att förhindra CORS.
-    const res = await fetch('/api/series');
+    const res = await fetch('https://dt193g-lab2-2.onrender.com/api/series');
 
     if (res.ok) {
       const data = await res.json();
@@ -65,7 +64,7 @@ const getSeries = async () => {
 // Förälder (seriesView) tar emot id och anropar API för DELETE
 const deleteSerie = async (id) => {
   try {
-    const res = await fetch('/api/series/' + id, {
+    const res = await fetch('https://dt193g-lab2-2.onrender.com/api/series/' + id, {
       method: "DELETE"
     });
 
