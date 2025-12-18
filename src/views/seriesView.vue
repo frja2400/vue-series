@@ -3,23 +3,28 @@
   <!-- Renderar komponenten för formuläret och skickar en emit när serie har lagts till (som hämtar listan på nytt) -->
   <AddSerie @refresh-series="getSeries" />
 
-  <!-- Visas medan API:et laddas -->
-  <p v-if="loading">Listan laddas...</p>
+
   <!-- Visas när series är hämtade -->
-  <table v-else>
-    <thead>
-      <tr>
-        <th>Namn</th>
-        <th>År</th>
-        <th>Sett</th>
-        <th>Ta bort</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Loopar igenom listan, skapar en komponent per objekt (SerieItem) och skriver ut -->
-      <SerieItem v-for="serie in series" :serie="serie" :key="serie._id" @delete-serie="deleteSerie" />
-    </tbody>
-  </table>
+  <section class="table-section">
+    <!-- Visas medan API:et laddas -->
+    <p class="loading" v-if="loading">Listan laddas...</p>
+    <div class="table-container" v-else>
+      <table>
+        <thead>
+          <tr>
+            <th>Namn</th>
+            <th>Premiärår</th>
+            <th>Sett</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Loopar igenom listan, skapar en komponent per objekt (SerieItem) och skriver ut -->
+          <SerieItem v-for="serie in series" :serie="serie" :key="serie._id" @delete-serie="deleteSerie" />
+        </tbody>
+      </table>
+    </div>
+  </section>
 </template>
 
 <script setup>
@@ -76,4 +81,50 @@ const deleteSerie = async (id) => {
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.table-section {
+  width: 100%;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  min-width: 600px;
+  border: 2px solid black;
+}
+
+th {
+  padding: 0.8rem;
+  text-align: left;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  color: white;
+  background: rgb(130, 52, 161);
+}
+
+tbody tr:nth-child(even) {
+  background-color: rgba(3, 2, 3, 0.8);
+}
+
+tbody tr:nth-child(odd) {
+  background-color: rgba(3, 2, 3, 0.9);
+}
+
+.loading {
+  max-width: 600px;
+  margin: 2rem auto;
+  background-color: rgba(3, 2, 3, 0.9);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0.8rem 1.2rem;
+  border-radius: 6px;
+  border-left: 5px solid rgb(174, 72, 214);
+  font-weight: 400;
+  font-size: 0.95rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+</style>

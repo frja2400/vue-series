@@ -26,10 +26,17 @@ main {
 }
 
 main h2 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 p,
 li {
   line-height: 1.8em;
+}
+
+@media screen and (max-width: 650px) {
+  main {
+    display: block;
+    width: 100%;
+  }
 }

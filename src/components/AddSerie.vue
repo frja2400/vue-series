@@ -79,8 +79,6 @@ form {
     margin: 2rem auto;
     padding: 2.5rem;
     background-color: rgba(3, 2, 3, 0.9);
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     max-width: 600px;
 }
 
@@ -140,7 +138,7 @@ form button:active {
 
 .error {
     max-width: 600px;
-    margin: 1rem auto;
+    margin: 2rem auto;
     background-color: rgba(3, 2, 3, 0.9);
     color: rgba(255, 255, 255, 0.9);
     padding: 0.8rem 1.2rem;
@@ -149,5 +147,15 @@ form button:active {
     font-weight: 400;
     font-size: 0.95rem;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 650px) {
+    form {
+        padding: 20px;
+    }
+
+    form input[type="checkbox"] {
+        margin-left: 5px;
+    }
 }
 </style>
